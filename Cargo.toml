@@ -1,0 +1,18 @@
+[package]
+name = "rust_text_editor"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+path = "crates/tui/main.rs"
+name = "text_editor"
+
+[workspace]
+members = [
+  "crates/editor_core",
+]
+
+[dependencies]
+tui = "0.18.0"
+crossterm = "0.23.2"
+editor_core = {path="crates/editor_core"}
