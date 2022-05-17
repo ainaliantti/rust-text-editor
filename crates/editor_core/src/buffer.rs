@@ -8,7 +8,7 @@ use crate::file;
 
 pub struct Buffer {
     pub filename: String,
-    pub contents: String,
+    pub contents: Vec<String>,
 }
 
 impl Buffer {

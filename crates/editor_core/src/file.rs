@@ -2,20 +2,20 @@
    File IO 
    */
 
-use std::fs;
+use std::fs::File;
 use std::path::Path;
-use std::io::ErrorKind;
+use std::io::BufReader;
+use std::io::prelude::*;
+use std::vec::Vec;
 
-pub fn read_file(filename: &String) -> String {
+pub fn read_file(filename: &String) -> Vec<String>{
     let path = Path::new(filename); 
-    match fs::read_to_string(path) {
-        Ok(contents) => contents,
-        Err(error) => match error.kind() {
-            ErrorKind::NotFound => String::new(),
-            other_error => {
-                panic!("Problem opening file: {:?}", other_error)
-            }
-        },
-    }
+    let file = match File::open(path) {
+        Ok(f) => f,
+        Err(err) => panic!("Something went wrong: {}", err),
+    };
+    let reader = BufReader::new(file);
+    let contents: Vec<String> = reader.lines().map(|x| x.unwrap()).collect();
+    contents
 }
 

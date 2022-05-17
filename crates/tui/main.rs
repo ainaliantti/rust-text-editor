@@ -114,9 +114,9 @@ fn ui<B: Backend>(f: &mut Frame<B>, _app: &App, buffer_to_display: &Buffer) {
         )
         .split(size);
 
-    let text = vec![
-        Spans::from(&buffer_to_display.contents[..]),
-    ];
+    let text: Vec<Spans> = buffer_to_display.contents.iter()
+        .map(|line| { Spans::from(&line[..]) })
+        .collect();
 
     let create_block = |title| {
         Block::default()
